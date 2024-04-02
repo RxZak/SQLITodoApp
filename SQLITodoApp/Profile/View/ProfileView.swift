@@ -12,7 +12,7 @@ struct ProfileView: View {
         List {
             Section {
                 HStack {
-                    Text("ZI")
+                    Text(User.MOCK_USER.initials)
                         .font(.title)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
@@ -21,12 +21,12 @@ struct ProfileView: View {
                         .clipShape(Circle())
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Zakariae ISMAILI")
+                        Text(User.MOCK_USER.name)
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .padding(.top, 4)
                         
-                        Text("zismaili@sqli.com")
+                        Text(User.MOCK_USER.email)
                             .font(.footnote)
                             .foregroundColor(.accentColor)
                     }
@@ -34,11 +34,26 @@ struct ProfileView: View {
             }
             
             Section("App Info") {
-                
+                HStack {
+                    SettingsRowView(imageName: "gear", title: "Version", tintColor: Color(.systemGray))
+                    Spacer()
+                    Text("1.0.0")
+                        .font(.subheadline)
+                        .foregroundColor(.accentColor)
+                }
             }
             
             Section("Actions") {
-                
+                Button {
+                    
+                } label: {
+                    SettingsRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .red)
+                }
+                Button {
+                    
+                } label: {
+                    SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red)
+                }
             }
         }
     }

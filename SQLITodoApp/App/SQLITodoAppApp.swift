@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct SQLITodoAppApp: App {
+    @StateObject var viewModel = AuthViewModel()
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -26,6 +28,7 @@ struct SQLITodoAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
         }
         .modelContainer(sharedModelContainer)
     }

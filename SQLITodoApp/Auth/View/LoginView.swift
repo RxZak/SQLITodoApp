@@ -9,9 +9,10 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var email = ""
     @State private var password = ""
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -37,7 +38,9 @@ struct LoginView: View {
                 .padding(.top, 20)
                 
                 Button{
-                    print("Logged in")
+                    Task {
+                        try await viewModel.signIn(withEmail: email, password: password)
+                    }
                 } label: {
                     HStack {
                         Text("Login")

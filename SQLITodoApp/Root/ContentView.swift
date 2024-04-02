@@ -10,6 +10,21 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var viewModel: AuthViewModel
+
+    var body: some View {
+        Group {
+            if viewModel.userSession != nil {
+                ProfileView()
+            } else {
+                LoginView()
+            }
+        }
+    }
+}
+
+struct InitialContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
     var body: some View {
@@ -38,7 +53,7 @@ struct ContentView: View {
             Text("Select an item")
         }
     }
-
+    
     private func addItem() {
         withAnimation {
             let newItem = Item(timestamp: Date())
@@ -53,6 +68,7 @@ struct ContentView: View {
             }
         }
     }
+
 }
 
 #Preview {
