@@ -27,7 +27,7 @@ struct LoginView: View {
                               placeholder: "name@sqli.com")
                     .autocapitalization(.none)
                     
-                    InputView(text: $email,
+                    InputView(text: $password,
                               title: "Password",
                               placeholder: "Enter your Password",
                               isSecureField: true)
@@ -54,7 +54,8 @@ struct LoginView: View {
                 Spacer()
                 
                 NavigationLink{
-                    
+                    RegistrationView()
+                        .navigationBarBackButtonHidden()
                 } label: {
                     HStack(spacing: 3) {
                         Text("Don't have an account?")
