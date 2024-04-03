@@ -7,9 +7,17 @@
 
 import SwiftUI
 import SwiftData
+import Firebase
 
 @main
 struct SQLITodoAppApp: App {
+
+    @StateObject var viewModel = AuthViewModel()
+
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -26,6 +34,7 @@ struct SQLITodoAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
         }
         .modelContainer(sharedModelContainer)
     }
