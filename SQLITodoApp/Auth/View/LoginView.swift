@@ -50,10 +50,12 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .frame(width: UIScreen.main.bounds.width - 32, height: 48)
                 }
-                .background(Color.accentColor)
+                .background(Color("SecondaryColor"))
                 .cornerRadius(10)
                 .padding(.top, 24)
-                
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1.0 : 0.5)
+
                 Spacer()
                 
                 NavigationLink{
@@ -66,9 +68,20 @@ struct LoginView: View {
                             .fontWeight(.bold)
                     }
                     .font(.system(size: 14))
+                    .foregroundColor(Color("SecondaryColor"))
                 }
             }
         }
+    }
+}
+
+extension LoginView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && email.contains(".")
+        && !password.isEmpty
+        && password.count >= 6
     }
 }
 
