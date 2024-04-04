@@ -13,7 +13,8 @@ import Firebase
 struct SQLITodoAppApp: App {
 
     @StateObject var viewModel = AuthViewModel()
-
+    
+    
     init() {
         FirebaseApp.configure()
     }

@@ -13,7 +13,12 @@ struct CreateToDoView: View {
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
     @State private var item = ToDoItem()
+    var toDoViewModel: ToDoViewModel
     
+    init(toDoViewModel: ToDoViewModel) {
+        self.toDoViewModel = toDoViewModel
+    }
+
     var body: some View {
         List {
             TextField("Name", text: $item.title)
@@ -23,15 +28,11 @@ struct CreateToDoView: View {
                 item.userUUID = viewModel.currentUser?.id ?? ""
                 withAnimation {
                     context.insert(item)
+                    toDoViewModel.fetchData()
                 }
                 dismiss()
             }
         }
         .navigationTitle("Create Task")
     }
-}
-
-#Preview {
-    CreateToDoView()
-        .modelContainer(for: ToDoItem.self)
 }

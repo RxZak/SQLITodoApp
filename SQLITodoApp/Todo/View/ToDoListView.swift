@@ -10,27 +10,23 @@ import SwiftData
 
 struct ToDoListView: View {
     @Environment(\.modelContext) var context
-    @EnvironmentObject var authViewModel: AuthViewModel
-
+    var authViewModel: AuthViewModel
+    @State private var toDoViewModel: ToDoViewModel
     @State private var showCreate: Bool = false
     @State private var toDoToEdit: ToDoItem?
-    @Query(
-        filter: #Predicate { (item: ToDoItem) in item.isCompleted == false },
-        sort: \.timeStamp,
-        order: .reverse
-    ) private var uncompletedItems: [ToDoItem]
-    
-    @Query(
-        filter: #Predicate { (item: ToDoItem) in item.isCompleted == true },
-        sort: \.timeStamp,
-        order: .reverse
-    ) private var completedItems: [ToDoItem]
+
+    init(authViewModel: AuthViewModel, modelContext: ModelContext) {
+        self.authViewModel = authViewModel
+        let viewModel = ToDoViewModel(modelContext: modelContext, authViewModel: authViewModel)
+        _toDoViewModel = State(initialValue: viewModel)
+        toDoViewModel.fetchData()
+    }
 
     var body: some View {
         NavigationStack {
             List {
                 Section("Uncompleted") {
-                    ForEach(uncompletedItems) { item in
+                    ForEach(toDoViewModel.uncompletedItems) { item in
                         HStack {
                             VStack(alignment: .leading) {
                                 
@@ -55,6 +51,7 @@ struct ToDoListView: View {
                             Button {
                                 withAnimation {
                                     item.isCompleted.toggle()
+                                    toDoViewModel.fetchData()
                                 }
                             } label: {
                                 
@@ -71,6 +68,7 @@ struct ToDoListView: View {
                                 
                                 withAnimation {
                                     context.delete(item)
+                                    toDoViewModel.fetchData()
                                 }
                                 
                             } label: {
@@ -89,7 +87,7 @@ struct ToDoListView: View {
                 }
                 
                 Section("Completed") {
-                    ForEach(completedItems) { item in
+                    ForEach(toDoViewModel.completedItems) { item in
                         HStack {
                             VStack(alignment: .leading) {
                                 
@@ -114,6 +112,7 @@ struct ToDoListView: View {
                             Button {
                                 withAnimation {
                                     item.isCompleted.toggle()
+                                    toDoViewModel.fetchData()
                                 }
                             } label: {
                                 
@@ -130,6 +129,7 @@ struct ToDoListView: View {
                                 
                                 withAnimation {
                                     context.delete(item)
+                                    toDoViewModel.fetchData()
                                 }
                                 
                             } label: {
@@ -165,14 +165,14 @@ struct ToDoListView: View {
             .sheet(isPresented: $showCreate,
                    content: {
                 NavigationStack {
-                    CreateToDoView()
+                    CreateToDoView(toDoViewModel: toDoViewModel)
                 }
                 .presentationDetents([.medium])
             })
             .sheet(item: $toDoToEdit) {
                 toDoToEdit = nil
             } content: { item in
-                UpdateToDoView(item: item)
+                UpdateToDoView(toDoViewModel: toDoViewModel, item: item)
             }
         }
     }

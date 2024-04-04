@@ -13,6 +13,12 @@ struct UpdateToDoView: View {
     @Environment(\.dismiss) var dismiss
     
     @Bindable var item: ToDoItem
+    var toDoViewModel: ToDoViewModel
+    
+    init(toDoViewModel: ToDoViewModel, item: ToDoItem) {
+        self.toDoViewModel = toDoViewModel
+        self.item = item
+    }
     
     var body: some View {
         List {
@@ -21,6 +27,7 @@ struct UpdateToDoView: View {
                        selection: $item.timeStamp)
             Toggle("Important?", isOn: $item.isImportant)
             Button("Update") {
+                toDoViewModel.fetchData()
                 dismiss()
             }
         }

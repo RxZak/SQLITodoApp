@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                ToDoListView()
+                ToDoListView(authViewModel: viewModel, modelContext: modelContext)
             } else {
                 LoginView()
             }
