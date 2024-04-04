@@ -74,6 +74,8 @@ class AuthViewModel: ObservableObject {
         }
 
         print("😀 Current user is \(self.currentUser?.name ?? "No user")")
+        print("😀 Current user id is \(self.currentUser?.id ?? "No id")")
+        print("😀 session user uid is \(self.userSession?.uid ?? "No uid")")
     }
 
 }
