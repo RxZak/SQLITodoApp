@@ -12,7 +12,8 @@ struct LoginView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var email = ""
     @State private var password = ""
-    
+    @State private var rememberMe = false
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -32,11 +33,24 @@ struct LoginView: View {
                               title: "Password",
                               placeholder: "Enter your Password",
                               isSecureField: true)
+                    Toggle("Remember Me", isOn: $rememberMe)
+                        .padding(.top, 8)
 
                 }
                 .padding(.horizontal)
                 .padding(.top, 20)
-                
+                .onAppear {
+                    if let savedEmail = UserDefaults.standard.string(forKey: "savedEmail") {
+                        email = savedEmail
+                    }
+                    if let savedPassword = UserDefaults.standard.string(forKey: "savedPassword") {
+                        password = savedPassword
+                    }
+                }
+                .onChange(of: rememberMe, initial: viewModel.rememberMe) {
+                    viewModel.saveUserCredentials(rememberMe: rememberMe, email: email, password: password)
+                }
+
                 Button{
                     Task {
                         try await viewModel.signIn(withEmail: email, password: password)

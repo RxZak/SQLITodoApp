@@ -17,10 +17,12 @@ protocol AuthenticationFormProtocol {
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
+    @Published var rememberMe: Bool
     
     init() {
         self.userSession = Auth.auth().currentUser
-        
+        self.rememberMe = UserDefaults.standard.bool(forKey: "rememberMe")
+
         Task {
             await fetchUserData()
         }
@@ -31,6 +33,11 @@ class AuthViewModel: ObservableObject {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             DispatchQueue.main.async {
                 self.userSession = result.user
+            }
+            if rememberMe {
+                UserDefaults.standard.set(true, forKey: "rememberMe")
+            } else {
+                UserDefaults.standard.set(false, forKey: "rememberMe")
             }
             await fetchUserData()
         } catch {
@@ -60,6 +67,10 @@ class AuthViewModel: ObservableObject {
                 self.userSession = nil
                 self.currentUser = nil
             }
+            if !rememberMe {
+                UserDefaults.standard.removeObject(forKey: "savedEmail")
+                UserDefaults.standard.removeObject(forKey: "savedPassword")
+            }
         } catch {
             print("SIGN OUT FAILED WITH ERROR: \(error.localizedDescription)")
         }
@@ -76,6 +87,19 @@ class AuthViewModel: ObservableObject {
         print("😀 Current user is \(self.currentUser?.name ?? "No user")")
         print("😀 Current user id is \(self.currentUser?.id ?? "No id")")
         print("😀 session user uid is \(self.userSession?.uid ?? "No uid")")
+    }
+    
+    func saveUserCredentials(rememberMe: Bool, email: String, password: String) {
+        if rememberMe {
+            UserDefaults.standard.set(email, forKey: "savedEmail")
+            UserDefaults.standard.set(password, forKey: "savedPassword")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "savedEmail")
+            UserDefaults.standard.removeObject(forKey: "savedPassword")
+        }
+        self.rememberMe = rememberMe
+        UserDefaults.standard.set(rememberMe, forKey: "rememberMe")
+        print("😀 \(self.rememberMe)")
     }
 
 }
