@@ -11,11 +11,11 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var viewModel: AuthViewModel
-
+    
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                ToDoListView(authViewModel: viewModel, modelContext: modelContext)
+                ToDoListView(toDoViewModel: ToDoViewModel(modelContext: modelContext, authViewModel: viewModel))
             } else {
                 LoginView()
             }

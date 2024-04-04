@@ -10,17 +10,11 @@ import SwiftData
 
 struct ToDoListView: View {
     @Environment(\.modelContext) var context
-    var authViewModel: AuthViewModel
-    @State private var toDoViewModel: ToDoViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
+
+    @ObservedObject var toDoViewModel: ToDoViewModel
     @State private var showCreate: Bool = false
     @State private var toDoToEdit: ToDoItem?
-
-    init(authViewModel: AuthViewModel, modelContext: ModelContext) {
-        self.authViewModel = authViewModel
-        let viewModel = ToDoViewModel(modelContext: modelContext, authViewModel: authViewModel)
-        _toDoViewModel = State(initialValue: viewModel)
-        toDoViewModel.fetchData()
-    }
 
     var body: some View {
         NavigationStack {
@@ -173,6 +167,9 @@ struct ToDoListView: View {
                 toDoToEdit = nil
             } content: { item in
                 UpdateToDoView(toDoViewModel: toDoViewModel, item: item)
+            }
+            .task {
+                toDoViewModel.fetchData()
             }
         }
     }
