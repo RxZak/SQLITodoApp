@@ -7,12 +7,20 @@
 
 import SwiftUI
 import SwiftData
+import Firebase
 
 @main
 struct SQLITodoAppApp: App {
+
+    @StateObject var viewModel = AuthViewModel()
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            ToDoItem.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -26,6 +34,8 @@ struct SQLITodoAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
+                .modelContainer(for: ToDoItem.self)
         }
         .modelContainer(sharedModelContainer)
     }

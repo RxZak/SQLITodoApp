@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "6361C260-43D5-4070-851E-5E1EB6606A66"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21E9470E-7436-4859-90FB-3B57E2928C51"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../var/folders/s7/2qc58kn14z3b2rxj11c9_3100000gn/T/swift-generated-sources/@__swiftmacro_11SQLITodoApp13ToDoViewModelC9fetchDatayyF9PredicatefMf_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "fetchData()"
+            landmarkType = "37">
+            <Locations>
+               <Location
+                  uuid = "21E9470E-7436-4859-90FB-3B57E2928C51 - 4f59ca0dd1b94ab9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SQLITodoApp.ToDoViewModel.fetchData() -&gt; ()"
+                  moduleName = "SQLITodoApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///var/folders/s7/2qc58kn14z3b2rxj11c9_3100000gn/T/swift-generated-sources/@__swiftmacro_11SQLITodoApp13ToDoViewModelC9fetchDatayyF9PredicatefMf_.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1"
+                  endingLineNumber = "1"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "21E9470E-7436-4859-90FB-3B57E2928C51 - ebd6fd0871e043e3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #5 (Foundation.PredicateExpressions.Variable&lt;SQLITodoApp.ToDoItem&gt;) -&gt; any Foundation.StandardPredicateExpression&lt;Self.Foundation.PredicateExpression.Output == Swift.Bool&gt; in SQLITodoApp.ToDoViewModel.fetchData() -&gt; ()"
+                  moduleName = "SQLITodoApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///var/folders/s7/2qc58kn14z3b2rxj11c9_3100000gn/T/swift-generated-sources/@__swiftmacro_11SQLITodoApp13ToDoViewModelC9fetchDatayyF9PredicatefMf_.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "4"
+                  endingLineNumber = "4"
+                  offsetFromSymbolStart = "212">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
