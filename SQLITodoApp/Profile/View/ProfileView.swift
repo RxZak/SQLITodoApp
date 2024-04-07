@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct ProfileView: View {
+    
+    // MARK: - Properties
+
     @EnvironmentObject var viewModel: AuthViewModel
     
+    // MARK: - Body
+
     var body: some View {
         if let user = viewModel.currentUser {
             List {
+                
+                // MARK: - User Information Section
+
                 Section {
                     HStack {
                         Text(user.initials)
@@ -35,7 +43,9 @@ struct ProfileView: View {
                         }
                     }
                 }
-                                                
+                               
+                // MARK: - Actions Section
+
                 Section("Actions") {
                     Button {
                         viewModel.signOut()
@@ -47,8 +57,4 @@ struct ProfileView: View {
 
         }
     }
-}
-
-#Preview {
-    ProfileView()
 }

@@ -15,6 +15,9 @@ protocol AuthenticationFormProtocol {
 }
 
 class AuthViewModel: ObservableObject {
+    
+    // MARK: - Properties
+
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     @Published var rememberMe: Bool
@@ -28,6 +31,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Sign In Function
+
     func signIn(withEmail email: String, password: String) async throws {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -45,6 +50,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Create User Function
+
     func createUser(withEmail email: String, password: String, name: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -60,6 +67,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Sign Out Function
+
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -76,6 +85,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Fetch User Data Function
+
     func fetchUserData() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
@@ -89,6 +100,8 @@ class AuthViewModel: ObservableObject {
         print("😀 session user uid is \(self.userSession?.uid ?? "No uid")")
     }
     
+    // MARK: - Save User Credentials Function
+
     func saveUserCredentials(rememberMe: Bool, email: String, password: String) {
         if rememberMe {
             UserDefaults.standard.set(email, forKey: "savedEmail")

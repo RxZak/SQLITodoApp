@@ -115,9 +115,9 @@
 		FE46FA202BBEA76C000B2956 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				FE46FA302BBECB33000B2956 /* ToDoViewModel */,
-				FE46FA242BBEA8C6000B2956 /* View */,
 				FE46FA212BBEA77A000B2956 /* Model */,
+				FE46FA242BBEA8C6000B2956 /* View */,
+				FE46FA302BBECB33000B2956 /* ViewModel */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -140,12 +140,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		FE46FA302BBECB33000B2956 /* ToDoViewModel */ = {
+		FE46FA302BBECB33000B2956 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				FE46FA312BBECB43000B2956 /* ToDoViewModel.swift */,
 			);
-			path = ToDoViewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FE5FC8842BBBF1B500C8F89C = {

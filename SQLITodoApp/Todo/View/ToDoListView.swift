@@ -9,16 +9,22 @@ import SwiftUI
 import SwiftData
 
 struct ToDoListView: View {
+    
+    // MARK: - Properties
+
     @Environment(\.modelContext) var context
     @EnvironmentObject var viewModel: AuthViewModel
-
     @ObservedObject var toDoViewModel: ToDoViewModel
     @State private var showCreate: Bool = false
     @State private var toDoToEdit: ToDoItem?
 
+    // MARK: - Body
+
     var body: some View {
         NavigationStack {
             List {
+                // MARK: - Uncompleted Tasks Section
+
                 Section("Uncompleted") {
                     ForEach(toDoViewModel.uncompletedItems) { item in
                         HStack {
@@ -80,6 +86,8 @@ struct ToDoListView: View {
                     }
                 }
                 
+                // MARK: - Completed Tasks Section
+
                 Section("Completed") {
                     ForEach(toDoViewModel.completedItems) { item in
                         HStack {

@@ -9,10 +9,14 @@ import SwiftUI
 
 struct LoginView: View {
     
+    // MARK: - Properties
+
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var email = ""
     @State private var password = ""
     @State private var rememberMe = false
+
+    // MARK: - Body
 
     var body: some View {
         NavigationStack {
@@ -33,12 +37,18 @@ struct LoginView: View {
                               title: "Password",
                               placeholder: "Enter your Password",
                               isSecureField: true)
+                    
+                    // MARK: - Remember Me Functionality
+
                     Toggle("Remember Me", isOn: $rememberMe)
                         .padding(.top, 8)
 
                 }
                 .padding(.horizontal)
                 .padding(.top, 20)
+                
+                // MARK: - Persist User Credentials
+
                 .onAppear {
                     if let savedEmail = UserDefaults.standard.string(forKey: "savedEmail") {
                         email = savedEmail
@@ -50,6 +60,8 @@ struct LoginView: View {
                 .onChange(of: rememberMe, initial: viewModel.rememberMe) {
                     viewModel.saveUserCredentials(rememberMe: rememberMe, email: email, password: password)
                 }
+                
+                // MARK: - Login Button
 
                 Button{
                     Task {
@@ -72,6 +84,8 @@ struct LoginView: View {
 
                 Spacer()
                 
+                // MARK: - Registration Navigation
+
                 NavigationLink{
                     RegistrationView()
                         .navigationBarBackButtonHidden()
@@ -88,6 +102,8 @@ struct LoginView: View {
         }
     }
 }
+
+// MARK: - Form Validation Protocol Impl
 
 extension LoginView: AuthenticationFormProtocol {
     var formIsValid: Bool {
