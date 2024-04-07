@@ -10,17 +10,23 @@ import SwiftData
 
 class ToDoViewModel: ObservableObject {
     
+    // MARK: - Properties
+
     var viewModel: AuthViewModel
     var modelContext: ModelContext
     @Published var uncompletedItems: [ToDoItem] = [ToDoItem]()
     @Published var completedItems: [ToDoItem] = [ToDoItem]()
     
+    // MARK: - Initializer
+
     init(modelContext: ModelContext, authViewModel: AuthViewModel) {
         self.viewModel = authViewModel
         self.modelContext = modelContext
         fetchData()
     }
     
+    // MARK: - Fetch Data Function
+
     func fetchData() {
         do {
             let uncompletedDescriptor = FetchDescriptor<ToDoItem>(

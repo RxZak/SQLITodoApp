@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @Environment(\.dismiss) private var dismiss
+    
+    // MARK: - Properties
 
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var email = ""
     @State private var name = ""
     @State private var password = ""
     @State private var confirmPassword = ""
     
+    // MARK: - Body
+
     var body: some View {
         VStack {
             Image("SQLI")
@@ -23,6 +27,8 @@ struct RegistrationView: View {
                 .scaledToFill()
                 .frame(width: 100, height: 120)
                 .padding(.vertical, 32)
+
+            // MARK: - Input Fields
 
             VStack(spacing: 24) {
                 InputView(text: $email,
@@ -48,7 +54,8 @@ struct RegistrationView: View {
             .padding(.horizontal)
             .padding(.top, 20)
 
-            
+            // MARK: - Register Button
+
             Button{
                 Task {
                     try await viewModel.createUser(withEmail: email, password: password, name: name)
@@ -70,6 +77,8 @@ struct RegistrationView: View {
             
             Spacer()
                 
+            // MARK: - Login Navigation
+
             Button {
                 dismiss()
             } label: {
@@ -85,6 +94,8 @@ struct RegistrationView: View {
         }
     }
 }
+
+// MARK: - Form Validation Protocol Impl
 
 extension RegistrationView: AuthenticationFormProtocol {
     var formIsValid: Bool {
